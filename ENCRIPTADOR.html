@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html lang="es">
+        
+<head>
+
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width">
+    <title>Encriptador/Desencriptador</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
+
+
+
+</head>
+
+
+<body>
+
+    <header>
+        <img class="logo" src="Alura Challenge - Desafío 1 - Lógica/Logo-1.png">
+    </header>
+    <main>
+        <section class="entrada">
+            
+            <form>
+                <textarea type="textarea" class="area-entrada" placeholder="Ingrese el texto aqui" cols="5" rows="1"></textarea>
+            </form>
+            <p class="texto-advertencia">solo letras minusculas y sin acentos</p>
+            <div class="botones1">
+                <button class="btnencriptar" onclick="encriptador()">ENCRIPTAR</button>
+                <button class="btndesencriptar" onclick="desencriptador()">DESENCRIPTAR</button>
+            </div>
+        </section>
+        <section class="salida">
+                <textarea class="area-salida" name="textoSalida" id="textoResultado"></textarea>
+                <img id="muneco" src="Alura Challenge - Desafío 1 - Lógica/Muñeco.png">
+                <p id="texto1">Ningún mensaje fue encontrado</p>
+                <p id="texto2">Ingresa el texto que desees encriptar o desencriptar.</p>  
+                <button  id="btncopiar" onclick="copiarTexto()">COPIAR</button> 
+        </section>
+    </main>
+    <footer>
+            
+    </footer>
+</body>
+
+
+
+
+    <script>
+
+        
+        var input = document.querySelector("textarea");
+        input.focus()
+
+        function copiarTexto() {
+
+            navigator.clipboard.writeText(document.getElementById("textoResultado").value);
+            
+        }
+
+        function encriptador () {
+            var texto = String(input.value);
+            encriptar(texto);
+        }
+
+        function encriptar (textoParaEncriptar) {
+
+           if(textoParaEncriptar.length<1){
+
+            muneco.style.cssText = 'visibility: visible';
+            texto1.style.cssText = 'visibility: visible';
+            texto2.style.cssText = 'visibility: visible';
+            btncopiar.style.cssText = 'visibility: hidden';
+           
+            } else {muneco.style.cssText = 'visibility: hidden';
+                    texto1.style.cssText = 'visibility: hidden';
+                    texto2.style.cssText = 'visibility: hidden';
+                    btncopiar.style.cssText = 'visibility: visible';
+                
+            }
+
+            var textoEncriptado = "";
+
+            for (i = 0; i<textoParaEncriptar.length;i++) {
+
+                if (textoParaEncriptar[i] == "a") {
+
+                    textoEncriptado = textoEncriptado + "ai";
+                }
+
+                if (textoParaEncriptar[i] == "e") {
+
+                    textoEncriptado = textoEncriptado + "enter";
+                }
+
+                if (textoParaEncriptar[i] == "i") {
+
+                    textoEncriptado = textoEncriptado + "imes";
+                }
+
+                if (textoParaEncriptar[i] == "o") {
+
+                    textoEncriptado = textoEncriptado + "ober";
+                }
+
+                if (textoParaEncriptar[i] == "u") {
+
+                    textoEncriptado = textoEncriptado + "ufat";
+                }
+
+                if (textoParaEncriptar[i] != "u" && textoParaEncriptar[i] != "o" && textoParaEncriptar[i] != "i" && textoParaEncriptar[i] != "e" && textoParaEncriptar[i] != "a") {
+
+                    textoEncriptado = textoEncriptado + textoParaEncriptar[i];
+                }
+            }
+
+            document.getElementById("textoResultado").value = textoEncriptado;
+        
+        }
+
+////////////////////////////////////////////////////////////////////////////////
+
+        function desencriptador () {
+
+            var texto = String(input.value);
+            
+            var textoDesencriptado = desencriptarAI(texto);
+            document.getElementById("textoResultado").value = textoDesencriptado;
+
+            if(texto.length<1){
+
+                muneco.style.cssText = 'visibility: visible';
+                texto1.style.cssText = 'visibility: visible';
+                texto2.style.cssText = 'visibility: visible';
+                btncopiar.style.cssText = 'visibility: hidden';
+
+                } else {muneco.style.cssText = 'visibility: hidden';
+                        texto1.style.cssText = 'visibility: hidden';
+                        texto2.style.cssText = 'visibility: hidden';
+                        btncopiar.style.cssText = 'visibility: visible';
+                    
+                }
+
+
+        }
+
+        function desencriptarAI (textoParaDesencriptarAI) {
+            
+            var textoDesencriptadoAI = textoParaDesencriptarAI;
+            
+
+            while (textoParaDesencriptarAI.indexOf("ai")!=-1) {
+
+                textoDesencriptadoAI = textoParaDesencriptarAI.replace("ai","ajr");
+                textoParaDesencriptarAI = textoParaDesencriptarAI.replace("ai","ajr");  
+                
+            }
+            
+            return desencriptarI(textoDesencriptadoAI);
+
+        }
+
+        function desencriptarI (textoParaDesencriptarI) {
+
+                var textoDesencriptadoI = textoParaDesencriptarI;   
+
+                while(textoParaDesencriptarI.indexOf("imes")!=-1) { 
+
+                    textoDesencriptadoI = textoParaDesencriptarI.replace("imes","i");
+                    textoParaDesencriptarI = textoParaDesencriptarI.replace("imes","i");
+                }
+                
+                return desencriptarA(textoDesencriptadoI);
+        }
+        
+        function desencriptarA (textoParaDesencriptarA) {
+
+                var textoDesencriptadoA = textoParaDesencriptarA;
+                
+                while(textoParaDesencriptarA.indexOf("ajr")!=-1) { 
+
+                    textoDesencriptadoA = textoParaDesencriptarA.replace("ajr","a");
+                    textoParaDesencriptarA = textoParaDesencriptarA.replace("ajr","a");
+                }  
+                
+                return desencriptarU(textoDesencriptadoA);
+        
+        }     
+
+        function desencriptarU (textoParaDesencriptarU) {
+
+                var textoDesencriptadoU = textoParaDesencriptarU;
+                
+                while(textoParaDesencriptarU.indexOf("ufat")!=-1) { 
+
+                    textoDesencriptadoU = textoParaDesencriptarU.replace("ufat","u");
+                    textoParaDesencriptarU = textoParaDesencriptarU.replace("ufat","u");
+                }
+                
+                return desencriptarO(textoDesencriptadoU);
+        }
+                 
+        function desencriptarO (textoParaDesencriptarO) {
+
+                var textoDesencriptadoO = textoParaDesencriptarO;
+                
+                while(textoParaDesencriptarO.indexOf("ober")!=-1) { 
+
+                    textoDesencriptadoO = textoParaDesencriptarO.replace("ober","o");
+                    textoParaDesencriptarO = textoParaDesencriptarO.replace("ober","o");
+                }
+                
+                return desencriptarE(textoDesencriptadoO);
+        }        
+                          
+        function desencriptarE (textoParaDesencriptarE) {
+
+                var textoDesencriptadoE = textoParaDesencriptarE;
+                while(textoParaDesencriptarE.indexOf("enter")!=-1) { 
+
+                    textoDesencriptadoE = textoParaDesencriptarE.replace("enter","e");
+                    textoParaDesencriptarE = textoParaDesencriptarE.replace("enter","e");
+                }
+        
+                return textoDesencriptadoE;
+        }    
+
+
+    </script>
